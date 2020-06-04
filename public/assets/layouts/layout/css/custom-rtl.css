@@ -1,0 +1,59 @@
+/* here you can put your own css to customize and override the theme */
+.page-sidebar-wrapper{
+	float: right;
+	height: 0;
+}
+.page-content-wrapper{
+	float: none !important;
+}
+.page-content-wrapper .page-content{
+	margin-right: 235px !important;
+	margin-left: 0px !important;
+}
+.dashboard-stat2 .display .number{
+	float: right !important;
+}
+.dashboard-stat2 .display .icon{
+	float: left !important;
+}
+.page-header.navbar .top-menu{
+	float: left;
+}
+.page-header.navbar .page-logo {
+    float: right;
+}
+.page-header.navbar .page-logo > .logo-image, .page-header.navbar .page-logo > a {
+    float: right;
+}
+.page-header.navbar .menu-toggler.sidebar-toggler {
+    float: left;
+}
+.page-sidebar .page-sidebar-menu li > a > .arrow::before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li > a > .arrow::before{
+	content: "\f105" !important;
+	left: 14px !important;
+	right: 200px !important;
+}
+.page-sidebar-closed .page-content-wrapper .page-content {
+    margin-right: 45px !important;
+    margin-left: 0px !important;
+}
+.page-sidebar .page-sidebar-menu > li.active > a > .selected, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > .selected {
+	border-left: 12px solid #fff;
+	border-right: 0px;
+	border-color: transparent #eef1f5 transparent #eef1f5 !important;
+	float: left;
+	right: 223px;
+}
+.page-sidebar .page-sidebar-menu.page-sidebar-menu-light > li.active.open > a, .page-sidebar .page-sidebar-menu.page-sidebar-menu-light > li.active > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu.page-sidebar-menu-light > li.active.open > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu.page-sidebar-menu-light > li.active > a {
+	border-left: 0px;
+}
+.page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed > li > a .selected {
+    right: 33px !important;
+}
+.nav.pull-right > li > .dropdown-menu, .nav > li > .dropdown-menu.pull-right {
+    left: 0;
+    right: auto;
+}
+.portlet > .portlet-title > .caption {
+	float: right;
+}
