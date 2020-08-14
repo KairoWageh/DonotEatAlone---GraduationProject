@@ -47,7 +47,7 @@ class restaurantController extends Controller
         $restaurant->save();
 
        // $restaurants = $restaurant->all();
-        return back();
+        return back()->with('success', __('site.editedSuccessfully');
     }
 
 
@@ -57,11 +57,6 @@ class restaurantController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-
-
-
-
-
 
     public function upload(Request $request,$id,User $user)
     {
@@ -91,9 +86,6 @@ class restaurantController extends Controller
 
     }
 
-
-
-
     /**
      * edit user password .......................................................................................................
      * @param Request $request
@@ -102,13 +94,11 @@ class restaurantController extends Controller
      */
     public function editPassword(Request $request, $id)
     {
-
-
         $restaurant = User::find($id);
         $restaurant->password =bcrypt($request->password);
         $restaurant->save();
 
-        return back();
+        return back()->with('success', __('site.editedSuccessfully');
     }
 
     public function logout(Request $request)
