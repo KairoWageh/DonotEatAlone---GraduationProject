@@ -2,6 +2,9 @@
 return [
 	'donotEatAlone' => 'Don\'t eat alone',
 	'language'      => 'Language',
+    'addedSuccessfully'       => 'Added successfully',
+	'editedSuccessfully'      => 'Edited successfully',
+	'deletedSuccessfully'     => 'Deleted successfully',
 
 	// login page 
 	'login'         => 'Login',
