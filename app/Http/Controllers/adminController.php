@@ -27,8 +27,10 @@ class adminController extends Controller
         $restaurantCount= $restaurant->count();
         $reservationCount= $reservation->count();
 
-         $siteVisits = $user->where('role', 'user')->whereMonth('created_at', '=', '04')->count();
+        $dateE = Carbon::now()->startOfMonth(); 
+        $siteVisits = $user->where('role', 'user')->whereMonth('created_at', '=', $dateE)->count();
 
+        // return $siteVisits;
 
         return view('admin.dashboard',compact('userCount','newUsersCount','restaurantCount','reservationCount','siteVisits'));
     }
@@ -44,7 +46,6 @@ class adminController extends Controller
     {
         $users = $user->all();
         return view('admin.allAdmins',compact('users'));
-        dd($user);
     }
 
     //add new admin............................................
@@ -65,11 +66,12 @@ class adminController extends Controller
 
         $user->UserName      = $request['UserName'];
         $user->email         = $request['email'];
-        $user->password  = bcrypt($request['password']);
+        $user->password      = bcrypt($request['password']);
         $user->role          = 'admin';
         $user->save();
 
-        return redirect('/allAdmins')->withFlashMessage('Admin added successfully');
+        // return redirect('/allAdmins')->withFlashMessage('Admin added successfully');
+        return redirect('/allAdmins')->with('success', __('site.addedSuccessfully'));
 
     }
 
@@ -101,7 +103,7 @@ class adminController extends Controller
         $user->save();
 
         $users = $user->all();
-        return view('admin.allAdmins',compact('users'));
+        return view('admin.allAdmins',compact('users'))->with('success', __('site.editedSuccessfully');
     }
 
     //Remove the admin specified resource from storage.
@@ -110,7 +112,7 @@ class adminController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return back();
+        return back()->with('success', __('site.deletedSuccessfully');
     }
 
     // show all restaurants....................................................
@@ -157,7 +159,7 @@ class adminController extends Controller
         $restaurant->RestaurantManager=$user->id;
         $restaurant->save();
 
-        return redirect('/allRestaurants')->withFlashMessage('Restaurant added successfully');
+        return redirect('/allRestaurants')->with('success', __('site.addedSuccessfully'));
     }
 
 
@@ -194,8 +196,9 @@ class adminController extends Controller
     {
         $restaurant = Restaurant::find($id);
         $restaurant->delete();
-        return back();
+        return back()->with('success', __('site.deletedSuccessfully');
     }
+
     public function showAllUsers(User $user)
     {
        $users =$user->all()->where('role','user');
@@ -210,7 +213,7 @@ class adminController extends Controller
     {
         $restaurant = Restaurant::find($id);
         $restaurant->delete();
-        return back();
+        return back()->with('success', __('site.deletedSuccessfully');
     }
 
 
@@ -235,8 +238,9 @@ class adminController extends Controller
         $user->save();
 
         $users = $user->all();
-        return back();
+        return back()->with('success', __('site.editedSuccessfully');
     }
+
     public function upload(Request $request,$id)
     {
         $user = User::find($id);
@@ -253,13 +257,11 @@ class adminController extends Controller
     }
     public function editPassword(Request $request, $id)
     {
-
-
         $user = User::find($id);
         $user->password =bcrypt($request->password);
         $user->save();
 
-        return back();
+        return back()->with('success', __('site.editedSuccessfully');
     }
     
     public function logout(Request $request)
