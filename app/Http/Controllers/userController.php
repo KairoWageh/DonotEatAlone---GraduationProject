@@ -124,7 +124,7 @@ class userController extends Controller
         $user->save();
 
         $users = $user->all();
-        return back()->with('success', __('site.editedSuccessfully');
+        return back()->with('success', __('site.editedSuccessfully'));
     }
 
 
@@ -168,7 +168,7 @@ class userController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
 
-        return back()->with('success', __('site.editedSuccessfully');
+        return back()->with('success', __('site.editedSuccessfully'));
     }
 
 
@@ -217,6 +217,3 @@ class userController extends Controller
     }
 
 }
-
-
-
