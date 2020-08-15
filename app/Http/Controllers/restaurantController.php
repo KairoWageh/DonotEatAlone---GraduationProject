@@ -47,7 +47,7 @@ class restaurantController extends Controller
         $restaurant->save();
 
        // $restaurants = $restaurant->all();
-        return back()->with('success', __('site.editedSuccessfully');
+        return back()->with('success', __('site.editedSuccessfully'));
     }
 
 
@@ -86,6 +86,9 @@ class restaurantController extends Controller
 
     }
 
+
+
+
     /**
      * edit user password .......................................................................................................
      * @param Request $request
@@ -98,7 +101,7 @@ class restaurantController extends Controller
         $restaurant->password =bcrypt($request->password);
         $restaurant->save();
 
-        return back()->with('success', __('site.editedSuccessfully');
+        return back()->with('success', __('site.editedSuccessfully'));
     }
 
     public function logout(Request $request)
