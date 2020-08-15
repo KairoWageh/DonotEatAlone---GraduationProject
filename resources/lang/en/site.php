@@ -2,7 +2,7 @@
 return [
 	'donotEatAlone' => 'Don\'t eat alone',
 	'language'      => 'Language',
-    'addedSuccessfully'       => 'Added successfully',
+	'addedSuccessfully'       => 'Added successfully',
 	'editedSuccessfully'      => 'Edited successfully',
 	'deletedSuccessfully'     => 'Deleted successfully',
 
@@ -73,6 +73,7 @@ return [
 
 
 
+
 	// edit admin page
 	'editAdmin'        => 'edit admin',
 
@@ -126,7 +127,7 @@ return [
 	// home page
 	'findPartner'   => 'Find partner',
 	'city'          => 'City',
-	'nasrCity'      => 'Nasr city',
+	'nasr city'      => 'Nasr city',
 	'maadi'         => 'Maadi',
 	'male'          => 'Male',
 	'female'        => 'Female',
