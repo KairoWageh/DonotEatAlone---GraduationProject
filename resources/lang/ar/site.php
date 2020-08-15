@@ -2,9 +2,10 @@
 return [
 	'donotEatAlone' => 'متاكلش لوحدك',
 	'language'      => 'اللغة',
-    'addedSuccessfully'      => 'تمت الإضافة بنجاح',
+	'addedSuccessfully'      => 'تمت الإضافة بنجاح',
 	'editedSuccessfully'   => 'تم التعديل بنجاح',
 	'deletedSuccessfully'  => 'تم الحذف بنجاح',
+
 
 	// login page 
 	'login'         => 'تسجيل الدخول',
@@ -73,8 +74,7 @@ return [
 	'action'           => 'تحكم',
 
 
-
-
+	
 	// edit admin page
 	'editAdmin'        => 'تعديل مسؤول',
 
@@ -124,7 +124,7 @@ return [
 	// home page
 	'findPartner'   => 'ابحث عن شريك',
 	'city'          => 'المدينة',
-	'nasrCity'      => 'مدينة نصر',
+	'nasr city'      => 'مدينة نصر',
 	'maadi'         => 'المعادي',
 	'male'          => 'ذكر',
 	'female'        => 'أنثى',
