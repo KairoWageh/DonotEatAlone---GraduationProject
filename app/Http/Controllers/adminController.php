@@ -103,7 +103,7 @@ class adminController extends Controller
         $user->save();
 
         $users = $user->all();
-        return view('admin.allAdmins',compact('users'))->with('success', __('site.editedSuccessfully');
+        return view('admin.allAdmins',compact('users'))->with('success', __('site.editedSuccessfully'));
     }
 
     //Remove the admin specified resource from storage.
@@ -112,7 +112,7 @@ class adminController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return back()->with('success', __('site.deletedSuccessfully');
+        return back()->with('success', __('site.deletedSuccessfully'));
     }
 
     // show all restaurants....................................................
@@ -196,7 +196,7 @@ class adminController extends Controller
     {
         $restaurant = Restaurant::find($id);
         $restaurant->delete();
-        return back()->with('success', __('site.deletedSuccessfully');
+        return back()->with('success', __('site.deletedSuccessfully'));
     }
 
     public function showAllUsers(User $user)
@@ -213,7 +213,7 @@ class adminController extends Controller
     {
         $restaurant = Restaurant::find($id);
         $restaurant->delete();
-        return back()->with('success', __('site.deletedSuccessfully');
+        return back()->with('success', __('site.deletedSuccessfully'));
     }
 
 
@@ -238,7 +238,7 @@ class adminController extends Controller
         $user->save();
 
         $users = $user->all();
-        return back()->with('success', __('site.editedSuccessfully');
+        return back()->with('success', __('site.editedSuccessfully'));
     }
 
     public function upload(Request $request,$id)
@@ -261,7 +261,7 @@ class adminController extends Controller
         $user->password =bcrypt($request->password);
         $user->save();
 
-        return back()->with('success', __('site.editedSuccessfully');
+        return back()->with('success', __('site.editedSuccessfully'));
     }
     
     public function logout(Request $request)
