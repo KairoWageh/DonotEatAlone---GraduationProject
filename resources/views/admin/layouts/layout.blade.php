@@ -42,6 +42,7 @@
                 @if(app()->getLocale() == 'ar')
                     {!! Html::style('public/assets/global/plugins/bootstrap/css/bootstrap-rtl.css') !!}
                     {!! Html::style('public/assets/layouts/layout/css/custom-rtl.css') !!}
+                    {!! Html::style('public/assets/global/css/plugins-rtl.min.css') !!}
                  @endif
                 @yield('header')
                 <link rel="shortcut icon" href="favicon.ico" />
@@ -71,20 +72,23 @@
                             <ul class="nav navbar-nav pull-right">
                             <!-- BEGIN NOTIFICATION DROPDOWN -->
                             <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                                <li>
-                                    <div class="dropdown">
-                                      <span>{{__('site.language')}}</span>
-                                      <div class="dropdown-content" style="left:0;">
-                                        <ul>
-                                          <li>
-                                            <a href="lang/en"> English </a>
-                                          </li>
-                                          <li>
-                                            <a href="lang/ar"> العربية</a>
-                                          </li>
-                                        </ul>
-                                      </div>
-                                    </div>
+                                <li class="dropdown dropdown-user">
+                                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                        <span class="username username-hide-on-mobile">     {{__('site.language')}}
+                                        </span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-default">
+                                        <li>
+                                            <a href="lang/en">
+                                            <i class="icon-globe"></i> English </a>
+                                        </li>
+                                        <li class="divider"> </li>
+                                        <li>
+                                            <a href="lang/ar">
+                                            <i class="icon-globe"></i>  العربية </a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li class="dropdown dropdown-user">
                                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
