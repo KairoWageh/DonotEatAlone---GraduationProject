@@ -19,7 +19,7 @@
                         <div class="mt-actions">
                             <div class="mt-action">
                                 <div class="mt-action-img">
-                                    <img  class="img-responsive" src="../uploads/{{$reserve->UserPhoto}}" />
+                                    <img  class="img-responsive" src="{{asset('public/uploads')}}/{{$reserve->UserPhoto}}" />
                                 </div>
                                 <div class="mt-action-body">
                                     <div class="mt-action-row">
@@ -37,8 +37,8 @@
                                         <div class="mt-action-buttons ">
                                             <div class="btn-group btn-group-circle">
                                                 <input type="hidden" value="{{$reserve->ReservationId}}" name="id">
-                                                <button type="button" id="" class="btn btn-outline green btn-sm approve">{{__('site.approve')}}</button>
-                                                <button type="button" id="reject" class="btn btn-outline red btn-sm reject">{{__('site.reject')}}</button>
+                                                <button type="button" id="" value="{{$reserve->ReservationId}}" class="btn btn-outline green btn-sm approve">{{__('site.approve')}}</button>
+                                                <button type="button" id="reject" value="{{$reserve->ReservationId}}" class="btn btn-outline red btn-sm reject">{{__('site.reject')}}</button>
                                             </div>
                                         </div>
                                     </div>
@@ -61,40 +61,35 @@
 @endsection
 @section('footer')
 <script>
-    $('.reject').on('click',function(event){
-    event.preventDefault();
-     var  id =  $('input[name=id]').val();
-        $.ajax({
-              method: 'GET',
-              url: 'reject',
-              data:{ReservationId:$('input[name=id]').val()
-
-              },
-                success:function(data){
-
-                     $( ".row-"+id ).remove();
-                   }
-        });
-    
-    });
-    
     //var app = $('')
     $('.approve').on('click',function(event){
-    
         event.preventDefault();
-            var  id =  $('input[name=id]').val();
-            $.ajax({
-                  method: 'GET',
-                  url: 'approve',
-                  data:{ReservationId:$('input[name=id]').val()
-                   },
-                  success:function(data){
+        var  id =  $(this).val();
+        $.ajax({
+            method: 'GET',
+            url: 'approveReservation',
+            data:{ReservationId: id},
+            success:function(data){
+                $( ".row-"+id ).remove();
+            }
+        });
+    });
 
-                        $( ".row-"+id ).remove();
-                  }
+    $('.reject').on('click',function(event){
+        event.preventDefault();
+        // var  id =  $('input[name=id]').val();
+        var  id =  $(this).val();
+        $.ajax({
+            method: 'GET',
+            url: 'rejectReservation',
+            data:{ReservationId: id},
+            success:function(data){
+                $( ".row-"+id ).remove();
+            }
+        });
+    });
     
-        });
-        });
+    
     
 </script>
 @endsection
