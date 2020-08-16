@@ -46,30 +46,23 @@ class reservationController extends Controller
         //the reservation states will be (1) is  approved ..............
 
         $id= $request['ReservationId'];
-        $reservation = Reservation::where('ReservationId',$id)->first();
+        $reservation = Reservation::where('ReservationId', $id)->first();
         $reservation->ReservationResponse = '1';
-//        return $reservation;
+
         $reservation->save();
-
-
-
 
         ///////   store notification/////////////
 
         $notification=[
-
             'NotificationToId1' =>$reservation->ReservationMakerId,
             'NotificationToId2'   =>$reservation->ReservationMaker2,
             'ReservationDate' =>$reservation->ReservationDate,
             'ReservationStartTime' =>$reservation->ReservationStartTime,
             'ReservationEndTime' =>$reservation->ReservationEndTime,
             'NotificationFormId' =>$reservation->ReservationRestaurantId
-
-
         ];
         Notification::create($notification);
-
-        return back();
+        return back()->with('success', __('site.approvedSuccessfully'));
     }
 
 
@@ -81,13 +74,6 @@ class reservationController extends Controller
 
         $reservation->save();
 
-        return back();
-
-
-
-
+        return back()->with('success', __('site.rejectedSuccessfully'));;
     }
-
-
-
 }
