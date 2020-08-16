@@ -19,7 +19,7 @@
                                 <div class="mt-actions">
                                     <div class="mt-action">
                                         <div class="mt-action-img">
-                                            <img class="img-responsive" src="../uploads/{{$invite->UserPhoto}}"> 
+                                            <img class="img-responsive" src="{{asset('public/uploads')}}/{{$invite->UserPhoto}}"> 
                                         </div>
                                         <div class="mt-action-body">
                                             <div class="mt-action-row">
