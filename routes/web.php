@@ -185,25 +185,11 @@ Route::group(['middleware'=>['web','restaurant']],function(){
 
     //***   routes for approve and reject the reservation  ***/
 
-    Route::get('/approve','reservationController@approveReservation');
-    Route::get('/reject','reservationController@rejectReservation');
+    Route::get('/approveReservation','reservationController@approveReservation');
+    Route::get('/rejectReservation','reservationController@rejectReservation');
 
     Route::post('/logout', 'restaurantController@logout')->name('restaurant.logout');
 
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
     Route::get('/firebase','userController@addUserToFireBase');
-
