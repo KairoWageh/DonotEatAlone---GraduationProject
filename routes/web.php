@@ -153,7 +153,16 @@ Route::group(['middleware'=>['web','user']],function(){
     Route::get('/rejectInvitation','invitationController@rejectInvitation');
 
     ////////............User Notifications ................................//////////
-    Route::get('notifications','notificationController@getNotification');
+    // Route::get('notifications','notificationController@getNotification');
+    Route::post('markAsRead/{id}','notificationController@markAsRead');
+    // Route::get('/markAsRead', function(){
+    //     // return auth()->user()->unreadNotifications;
+    //     //auth()->user()->unreadNotifications->markAsRead();
+
+    //     //return redirect()->back();
+
+    // })->name('mark');
+
 
 
     ////////............User messages ................................//////////
@@ -187,9 +196,7 @@ Route::group(['middleware'=>['web','restaurant']],function(){
 
     Route::get('/approveReservation','reservationController@approveReservation');
     Route::get('/rejectReservation','reservationController@rejectReservation');
-
     Route::post('/logout', 'restaurantController@logout')->name('restaurant.logout');
-
 
 });
     Route::get('/firebase','userController@addUserToFireBase');
