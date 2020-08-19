@@ -10,6 +10,7 @@ class Notification extends Model
 {
     //
     protected $table ="notifications";
+    public $incrementing = false;
 
     protected $fillable= [
         'IsRead',  'ReservationDate', 'ReservationStartTime','ReservationEndTime', 'notifiable_id', 'notifiable_type'
