@@ -147,7 +147,7 @@
                                             <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
                                                 @foreach(auth()->user()->unreadNotifications as $notification)
                                                     <li>
-                                                        <a onclick="markAsRead()">
+                                                        <a class="notification" id= {{ $notification->id }}>
                                                             <span class="time">9 days</span>
                                                             <span class="details">
                                                                 <span class="label label-sm label-icon label-danger">
@@ -450,10 +450,18 @@
                     {!! Html::script('public/assets/layouts/layout/scripts/chat.js') !!}
                     <!-- END CAHT SCRIPTS -->
                     <script type="text/javascript">
-                        function markAsRead(){
-                            var notification = document.getElementById('notification').value;
-                            console.log(notification)
-                        }
+                        $(".notification").click(function(){
+                            // clicked notification id
+                            var notificationID = this.id;
+                            $.ajax({
+                                type:'POST',
+                                url:'markAsRead/' + notificationID,
+                                data:{ "_token":  "{{ csrf_token() }}", "notificationID": notificationID },
+                                success:function(data) {
+                                    
+                                }
+                            });
+                        });
                     </script>
                     <!-- <script type="text/javascript">
                         var notificationsWrapper   = $('.dropdown-notifications');
