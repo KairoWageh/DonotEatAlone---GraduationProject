@@ -154,14 +154,12 @@ Route::group(['middleware'=>['web','user']],function(){
 
     ////////............User Notifications ................................//////////
     // Route::get('notifications','notificationController@getNotification');
-    Route::post('markAsRead/{id}','notificationController@markAsRead');
-    // Route::get('/markAsRead', function(){
-    //     // return auth()->user()->unreadNotifications;
-    //     //auth()->user()->unreadNotifications->markAsRead();
-
-    //     //return redirect()->back();
-
-    // })->name('mark');
+    //Route::post('markAsRead/{id}','notificationController@markAsRead');
+    Route::get('getNotificationNumber', 'notificationController@getNotificationNumber');
+    Route::get('/markAsRead', function(){
+        auth()->user()->unreadNotifications->markAsRead();
+        return redirect()->back();
+    })->name('mark');
 
 
 
