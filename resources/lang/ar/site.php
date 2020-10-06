@@ -5,6 +5,8 @@ return [
 	'addedSuccessfully'      => 'تمت الإضافة بنجاح',
 	'editedSuccessfully'   => 'تم التعديل بنجاح',
 	'deletedSuccessfully'  => 'تم الحذف بنجاح',
+	'approvedSuccessfully' => 'تمت الموافقة',
+	'rejectedSuccessfully' => 'تم الرفض',
 
 
 	// login page 
@@ -160,6 +162,7 @@ return [
 	'friends'         => 'الأصدقاء',
 	'myFriends'       => 'أصدقائي',
 	'noFriends'       => 'لا يوجد أصدقاء',
+	'you'             => 'أنت',
 
 
 
