@@ -47,20 +47,20 @@
                 </div>
             </div>
         </div>
-        <div class="chat-popup" id="myForm" style="display: none; position: fixed; bottom: 0; right: 15px; border: 3px solid #f1f1f1; z-index: 9;">
+        <!-- <div class="chat-popup" id="myForm" style="display: none; position: fixed; bottom: 0; right: 15px; border: 3px solid #f1f1f1; z-index: 9;">
             <div class="form-container" style="max-width: 300px; padding: 10px; background-color: white">
                 <div id="chat-window">
 
                 </div>
                 <div id="typingStatus" style="padding: 15px"></div>
                 <input type="text" placeholder="Type message.." name="msg" id="msg" required autofocus="" onblur="notTyping()" style="width: 100%; padding: 15px; margin: 5px 0 22px 0; border: none; background: #f1f1f1; resize: none;"></input>
-{{--                <button type="submit" class="btn" style="background-color: #4CAF50;color: white;padding: 16px 20px;border: none;cursor: pointer;width: 100%;margin-bottom:10px;opacity: 0.8;">Send</button>--}}
+                <button type="submit" class="btn" style="background-color: #4CAF50;color: white;padding: 16px 20px;border: none;cursor: pointer;width: 100%;margin-bottom:10px;opacity: 0.8;">Send</button>
                 <button type="button" class="btn cancel" style="background-color: #4CAF50;color: white;padding: 16px 20px;border: none;cursor: pointer;width: 100%;margin-bottom:10px;opacity: 0.8;background-color: red" onclick="hideMessageForm()">Close</button>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     function showMessageForm(){
         $("#myForm").css("display", "block");
     }
@@ -68,7 +68,7 @@
     function hideMessageForm(){
         $("#myForm").css("display", "none");
     }
-</script>
+</script> -->
 @endsection
 {{--{!! Html::script('assets/layouts/layout/scripts/jquery-1.11.1.min.js') !!}--}}
 {{--{!! Html::script('assets/layouts/layout/scripts/chat.js') !!}--}}
