@@ -6,6 +6,7 @@ use App\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Events\MessageSent;
+use Carbon\Carbon;
  
 class MessagesController extends Controller
 {
@@ -23,21 +24,29 @@ class MessagesController extends Controller
      */
     public function getLoadLatestMessages(Request $request)
     {
+        // if request has no user_id return
         if(!$request->user_id) {
             return;
         }
- 
+        // if request has user_id
+        /* get messages where 
+                sender is current user and receiver is user_id
+                sender is user_id and receiver is current user
+            get latest 10 messages
+        */
         $messages = Message::where(function($query) use ($request) {
             $query->where('MessageSenderId', Auth::user()->id)->where('MessageReceiverId', $request->user_id);
         })->orWhere(function ($query) use ($request) {
             $query->where('MessageSenderId', $request->user_id)->where('MessageReceiverId', Auth::user()->id);
-        })->orderBy('created_at', 'ASC')->limit(10)->get();
- 
+        })->orderBy('id', 'DESC')->limit(10)->get()->reverse();
+ //return $messages;
+        // empty array to hold fetched messages
         $return = [];
-
+        // mark each message as read
         foreach ($messages as $message) {
             $message->IsRead = 1;
             $message->save(); 
+            $message->time = Carbon::parse($message->created_at)->diffForHumans();
             $return[] = view('users/message-line')->with('message', $message)->render();
         }
  
@@ -65,23 +74,8 @@ class MessagesController extends Controller
         $message->IsRead = 0;
         $message->save();
  
+        //exclude the current user from the broadcast's recipients
         broadcast(new MessageSent($user, $message))->toOthers();
-
-        // prepare some data to send with the response
-        // $message->dateTimeStr = date("Y-m-dTH:i", strtotime($message->created_at->toDateTimeString()));
-        $message->dateTimeStr = date("Y-m-dTH:i", strtotime($message->created_at));
- 
-        $message->dateHumanReadable = $message->created_at;
- 
-        $message->fromUserName = $message->sender->UserName;
- 
-        $message->from_user_id = Auth::user()->id;
- 
-        $message->toUserName = $message->receiver->UserName;
- 
-        $message->to_user_id = $request->MessageReceiverId;
-
-        //return $message;
  
         PusherFactory::make()->trigger('chat', 'send', ['data' => $message]);
  
@@ -93,6 +87,7 @@ class MessagesController extends Controller
      *
      * we will fetch the old messages using the last sent id from the request
      * by querying the created at date
+     * works when scrolling up
      *
      * @param Request $request
      */
@@ -102,26 +97,31 @@ class MessagesController extends Controller
             return;
  
         $message = Message::find($request->old_message_id);
+
+        //return $message->created_at;
  
         $lastMessages = Message::where(function($query) use ($request, $message) {
-            $query->where('from_user', Auth::user()->id)
-                ->where('to_user', $request->to_user)
-                ->where('created_at', '<', $message->created_at);
+            $query->where('MessageSenderId', Auth::user()->id)
+                ->where('MessageReceiverId', $request->to_user)
+                ->where('created_at', '<=', $message->created_at)
+                ->where('id', '<', $message->id);
         })
             ->orWhere(function ($query) use ($request, $message) {
-            $query->where('from_user', $request->to_user)
-                ->where('to_user', Auth::user()->id)
-                ->where('created_at', '<', $message->created_at);
-        })
-            ->orderBy('created_at', 'ASC')->limit(10)->get();
+            $query->where('MessageSenderId', $request->to_user)
+                ->where('MessageReceiverId', Auth::user()->id)
+                ->where('created_at', '<=', $message->created_at)
+                ->where('id', '<', $message->id);
+        })->orderBy('id', 'DESC')->get();
+
+            //return $lastMessages;
  
         $return = [];
  
         if($lastMessages->count() > 0) {
  
             foreach ($lastMessages as $message) {
- 
-                $return[] = view('message-line')->with('message', $message)->render();
+                $message->time = Carbon::parse($message->created_at)->diffForHumans();
+                $return[] = view('users/message-line')->with('message', $message)->render();
             }
  
             PusherFactory::make()->trigger('chat', 'oldMsgs', ['to_user' => $request->to_user, 'data' => $return]);
