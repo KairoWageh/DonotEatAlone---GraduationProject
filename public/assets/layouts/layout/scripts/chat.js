@@ -12,12 +12,16 @@ $(function () {
    $(".chat-toggle").on("click", function (e) {
        e.preventDefault();
        let ele = $(this);
+       // receiver user_id
        let user_id = ele.attr("data-id");
+       // receiver user_name
        let username = ele.attr("data-user");
        cloneChatBox(user_id, username, function () {
+          // previous chat box with that user
            let chatBox = $("#chat_box_" + user_id);
            if(!chatBox.hasClass("chat-opened")) {
                chatBox.addClass("chat-opened").slideDown("fast");
+               // load last messages using chat container and receiver id
                loadLatestMessages(chatBox, user_id);
                chatBox.find(".chat-area").animate({scrollTop: chatBox.find(".chat-area").offset().top + chatBox.find(".chat-area").outerHeight(true)}, 800, 'swing');
            }
@@ -42,7 +46,9 @@ $(function () {
  
     // on click the btn send the message
    $(".btn-chat").on("click", function (e) {
-       send($(this).attr('data-to-user'), $("#chat_box_" + $(this).attr('data-to-user')).find(".chat_input").val());
+      let msgReceiverId = $(this).attr('data-to-user');
+      let msg = $("#chat_box_" + $(this).attr('data-to-user')).find(".chat_input").val();
+      send(msgReceiverId, msg);
    });
  
    // listen for the send event, this event will be triggered on click the send btn
@@ -57,7 +63,6 @@ $(function () {
  
    $(".chat-area").on("scroll", function (e) {
        let st = $(this).scrollTop();
- 
        if(st < lastScrollTop) {
  
            fetchOldMessages($(this).parents(".chat-opened").find("#to_user_id").val(), $(this).find(".msg_container:first-child").attr("data-message-id"));
@@ -145,19 +150,21 @@ function getMessageReceiverHtml(message)
  */
 function cloneChatBox(user_id, username, callback)
 {
+    // check if there is a previous chat with that user
+    // if no previous chat ...
     if($("#chat_box_" + user_id).length == 0) {
- 
+        // get chat box from chat-box.blade.php using its id
         let cloned = $("#chat_box").clone(true);
  
-        // change cloned box id
+        // change cloned box id by adding user id
         cloned.attr("id", "chat_box_" + user_id);
- 
+        // change cloned box chat-user 
         cloned.find(".chat-user").text(username);
- 
+        // find cloned box btn-chat and change data-to-user value to receiver user_id
         cloned.find(".btn-chat").attr("data-to-user", user_id);
- 
+        // find cloned box  and change to_user_id value to receiver user_id
         cloned.find("#to_user_id").val(user_id);
- 
+        // append cloned to chat-overlay div
         $("#chat-overlay").append(cloned);
     }
  
@@ -174,8 +181,10 @@ function cloneChatBox(user_id, username, callback)
  */
 function loadLatestMessages(container, user_id)
 {
+  // find chat area div from inside chat container
   let chat_area = container.find(".chat-area");
 
+  // clear chat area
   chat_area.html("");
 
   $.ajax({
@@ -184,10 +193,12 @@ function loadLatestMessages(container, user_id)
       method: "GET",
       dataType: "json",
       beforeSend: function () {
+          // if no loader icon, add one
           if(chat_area.find(".loader").length  == 0) {
               chat_area.html(loaderHtml());
           }
       },
+      // on success, append messages to chat_area
       success: function (response) {
           if(response.state == 1) {
               response.messages.map(function (val, index) {
@@ -195,6 +206,7 @@ function loadLatestMessages(container, user_id)
               });
           }
       },
+      // on complete, remove chat loader icon
       complete: function () {
           chat_area.find(".loader").remove();
       }
@@ -243,10 +255,14 @@ function send(MessageReceiverId, message)
 function displayMessage(message)
 {
   let alert_sound = document.getElementById("chat-alert-sound");
+  // check if current user is the sender of a message
   if($("#current_user").val() == message.from_user_id) {
+      // call sender html and style
       let messageLine = getMessageSenderHtml(message);
       $("#chat_box_" + message.to_user_id).find(".chat-area").append(messageLine);
-  } else if($("#current_user").val() == message.to_user_id) {
+  }
+  // if current user is the receiver of a message
+   else if($("#current_user").val() == message.to_user_id) {
       alert_sound.play();
 
       // for the receiver user check if the chat box is already opened otherwise open it
