@@ -4,7 +4,7 @@
         <div class="col-md-10 col-xs-10">
             <div class="messages msg_sent text-right">
                 <p>{!! $message->MessageContent  !!}</p>
-                <time datetime="{{ date('Y-m-dTH:i', strtotime($message->created_at)) }}">{{__('site.you')}} • {{ $message->created_at }}</time>
+                <time datetime="{{ date('Y-m-dTH:i', strtotime($message->created_at)) }}">{{__('site.you')}} • {{ $message->time }}</time>
             </div>
         </div>
         <div class="col-md-2 col-xs-2 avatar">
@@ -21,7 +21,7 @@
         <div class="col-md-10 col-xs-10">
             <div class="messages msg_receive text-left">
                 <p>{!! $message->MessageContent  !!}</p>
-                <time datetime="{{ date('Y-m-dTH:i', strtotime($message->created_at)) }}">{{ $message->sender->UserName }} • {{ $message->created_at }}</time>
+                <time datetime="{{ date('Y-m-dTH:i', strtotime($message->created_at)) }}">{{ $message->sender->UserName }} • {{ $message->time }}</time>
             </div>
         </div>
     </div>
