@@ -73,13 +73,18 @@ class MessagesController extends Controller
         $message->MessageContent  = $request->message;
         $message->IsRead = 0;
         $message->save();
+        $message->dateHumanReadable = Carbon::parse($message->created_at)->diffForHumans();
+
+        $message->time = Carbon::parse($message->created_at)->diffForHumans();
+        $return[] = view('users/message-line')->with('message', $message)->render();
  
         //exclude the current user from the broadcast's recipients
         broadcast(new MessageSent($user, $message))->toOthers();
  
         PusherFactory::make()->trigger('chat', 'send', ['data' => $message]);
  
-        return response()->json(['state' => 1, 'data' => $message]);
+        // return response()->json(['state' => 1, 'data' => $message]);
+        return response()->json(['state' => 1, 'data' => $return]);
     }
 
     /**
