@@ -48,7 +48,9 @@ $(function () {
    $(".btn-chat").on("click", function (e) {
       let msgReceiverId = $(this).attr('data-to-user');
       let msg = $("#chat_box_" + $(this).attr('data-to-user')).find(".chat_input").val();
+      let chatBox = $("#chat_box_" + msgReceiverId);
       send(msgReceiverId, msg);
+      //loadLatestMessages(chatBox, msgReceiverId);
    });
  
    // listen for the send event, this event will be triggered on click the send btn
@@ -237,6 +239,11 @@ function send(MessageReceiverId, message)
           }
       },
       success: function (response) {
+        if(response.state == 1) {
+              response.data.map(function (val, index) {
+                  $(val).appendTo(chat_area);
+              });
+          }
       },
       complete: function () {
           chat_area.find(".loader").remove();
